@@ -22,4 +22,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // Matches "/api/login
     $router->post('login', 'AuthController@login');
 
+    $router->post('roles', 'UserController@roles');
+    $router->group(['middleware' => 'auth:api'], function () use ($router) {
+        $router->post('setting', 'UserController@time_setting');
+        $router->post('task', 'UserController@task');
+        $router->get('task', 'UserController@task');
+    });
 });

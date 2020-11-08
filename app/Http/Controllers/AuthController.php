@@ -15,6 +15,8 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
+            'role_id'=>'required|exists:roles,id',
+
         ]);
 
         try {
@@ -22,6 +24,7 @@ class AuthController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
+            $user->role_id=$request->input('role_id');
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
 
